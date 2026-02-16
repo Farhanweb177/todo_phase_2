@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import type { AuthState, RegisterRequest, LoginRequest } from '@/utils/types';
 import { getErrorMessage } from '@/utils/types';
 import { loginUser as apiLoginUser, registerUser as apiRegisterUser, getCurrentUser } from '@/services/auth';
-import { setAccessToken, setRefreshToken, clearAuthStorage } from '@/utils/storage';
+import { getAccessToken, setAccessToken, setRefreshToken, clearAuthStorage } from '@/utils/storage';
 
 interface AuthContextType extends AuthState {
   login: (data: LoginRequest) => Promise<void>;
@@ -37,6 +37,19 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
   // Check if user is authenticated
   const checkAuth = async (): Promise<void> => {
+    // Skip the API call entirely when there is no token — avoids a
+    // guaranteed 401 response and the associated console noise.
+    const token = getAccessToken();
+    if (!token) {
+      setState({
+        isAuthenticated: false,
+        user: null,
+        loading: false,
+        error: null,
+      });
+      return;
+    }
+
     try {
       setState(prev => ({ ...prev, loading: true, error: null }));
 

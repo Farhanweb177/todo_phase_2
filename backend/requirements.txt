@@ -1,15 +1,15 @@
 # Core framework
-fastapi==0.115.0
-uvicorn[standard]==0.32.0
-python-multipart==0.0.20
+fastapi>=0.115.0
+uvicorn[standard]>=0.32.0
+python-multipart>=0.0.20
 
 # ORM & database
-sqlmodel==0.0.32
-pydantic[email]==2.12.5
-alembic==1.13.3
+sqlmodel>=0.0.22
+pydantic[email]>=2.10.0
+alembic>=1.13.3
 
 # PostgreSQL driver (sync — required for sqlmodel + Neon)
-psycopg2-binary==2.9.10
+psycopg2-binary>=2.9.10
 
 # Authentication
 passlib[bcrypt]==1.7.4
@@ -17,8 +17,12 @@ bcrypt==4.0.1  # pinned for passlib 1.7.4 compatibility
 python-jose[cryptography]==3.3.0
 
 # Environment
-python-dotenv==1.1.0
+python-dotenv>=1.1.0
+
+# AI Agent & MCP
+openai-agents>=0.8.0
+fastmcp>=2.0.0
 
 # Testing
-pytest==8.3.4
-httpx==0.27.2
+pytest>=8.3.4
+httpx>=0.27.2

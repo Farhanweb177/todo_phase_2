@@ -31,14 +31,13 @@ apiClient.interceptors.request.use(
 apiClient.interceptors.response.use(
   (response) => response,
   (error: AxiosError) => {
-    // Handle 401 Unauthorized - clear auth and redirect
+    // On 401, clear stored tokens so stale credentials don't persist.
+    // Do NOT redirect here — AuthProvider and page-level guards handle
+    // navigation. A hard redirect (window.location.href) would trigger a
+    // full page reload, which re-mounts AuthProvider, which calls
+    // checkAuth() again, causing an infinite reload loop.
     if (error.response?.status === 401) {
       clearAuthStorage();
-
-      // Only redirect if we're in the browser
-      if (typeof window !== 'undefined') {
-        window.location.href = '/auth/signin?expired=true';
-      }
     }
 
     // Transform error to a more usable format

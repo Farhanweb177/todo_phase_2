@@ -36,6 +36,12 @@ export default function Navbar() {
                     >
                       Dashboard
                     </Link>
+                    <Link
+                      href="/chat"
+                      className="text-gray-700 hover:text-primary transition-colors px-3 py-2 rounded-md text-sm font-medium"
+                    >
+                      Chat
+                    </Link>
 
                     <div className="flex items-center space-x-4 ml-4 pl-4 border-l border-gray-200">
                       {user && (
@@ -115,6 +121,13 @@ export default function Navbar() {
                       onClick={() => setMobileMenuOpen(false)}
                     >
                       Dashboard
+                    </Link>
+                    <Link
+                      href="/chat"
+                      className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-100 hover:text-primary transition-colors"
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      Chat
                     </Link>
                     <button
                       onClick={handleSignOut}
